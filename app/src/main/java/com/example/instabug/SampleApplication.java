@@ -1,5 +1,7 @@
 package com.example.instabug;
 
+// comment
+
 import android.app.Application;
 import android.content.Context;
 import androidx.multidex.MultiDex;
