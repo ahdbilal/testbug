@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "com.example.instabug"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        flavorDimensions "default"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+repositories {
+    maven {
+        // TODO add this only if interested in getting SNAPSHOT releases
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+    google()
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.multidex:multidex:$rootProject.ext.multidex"
+    implementation "com.google.android.material:material:$rootProject.ext.material"
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.androidXAppCompat"
+
+    implementation 'com.google.firebase:firebase-core:16.0.0'
+    implementation 'com.google.firebase:firebase-messaging:17.0.0'
+
+    //TODO add the following 2 lines if you exclude io.reactivex from Instabug
+    //implementation 'io.reactivex:rxjava:1.0.13'
+    //implementation 'io.reactivex:rxandroid:1.0.1'
+    implementation("com.instabug.library:instabug:$rootProject.ext.instabugSDK") {
+    // TODO uncomment this line to exclude RxJava from Instabug and use your own version
+    // exclude group: 'io.reactivex'
+
+     // TODO uncomment next line if you're facing compilation issue in build.gradle about gms different versions
+     //exclude group: 'com.android.support'
+    }
+    implementation "petrov.kristiyan:colorpicker-library:$rootProject.ext.colorPicker"
+}
